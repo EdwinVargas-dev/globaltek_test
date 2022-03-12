@@ -1,0 +1,15 @@
+.ma-auto{
+    margin: auto !important;
+}
+.my-auto{
+    margin: auto 0 !important;
+}
+.table-w-100{
+    width: 100%;
+}
+
+.ellipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden !important;
+}

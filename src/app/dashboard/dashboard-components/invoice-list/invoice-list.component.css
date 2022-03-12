@@ -1,0 +1,27 @@
+.screen-height{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 69vh;
+}
+
+.justify-space-between{
+    justify-content: space-between;
+}
+
+.ellipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 7vw;
+    overflow: hidden !important;
+}
+
+a{
+    cursor: pointer
+}
+
+.input-custom{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}

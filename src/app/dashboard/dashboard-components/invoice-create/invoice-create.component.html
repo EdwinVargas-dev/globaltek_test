@@ -1,0 +1,149 @@
+<mat-card>
+  <mat-card-content>
+    <div>
+      <h2>Create a new invoice</h2>
+    </div>
+    <form [formGroup]="dataInvoice" (ngSubmit)="createInvoice()">
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex.gt-sm="30%" fxFlex.gt-xs="30%" fxFlex="100" class="m-l-5 m-r-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Invoice number</mat-label>
+            <input type="number" matInput formControlName="NumeroFactura" placeholder="Invoice number">
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="25%" fxFlex.gt-xs="25%" fxFlex="100" class="m-l-5 m-r-5">
+          <button mat-flat-button color="primary" class="height-button btn-block m-t-5" (click)="getInvoiceNumber()">Generate invoice number</button>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex.gt-sm="60%" fxFlex.gt-xs="60%" fxFlex="100" class="m-l-5 m-r-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Customer name</mat-label>
+            <input type="text" matInput formControlName="NombreCliente" placeholder="Customer name">
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="40%" fxFlex.gt-xs="80%" fxFlex="100" class="m-l-5 m-r-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Customer document</mat-label>
+            <input type="number" matInput formControlName="DocumentoCliente" placeholder="Customer document">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="40%" fxFlex="100" class="m-l-5 m-r-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Payment type</mat-label>
+            <mat-select formControlName="TipodePago">
+              <mat-option value="Contado">Contado</mat-option>
+              <mat-option value="Crédito">Crédito</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="80%" fxFlex="100" class="m-l-5 m-r-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Discount</mat-label>
+            <input type="number" matInput formControlName="Descuento" placeholder="Discount">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="m-t-10 m-b-10 m-l-5 m-r-5">
+        <h4>Add a new detail</h4>
+      </div>
+
+      <form [formGroup]="dataDetail" (ngSubmit)="addNewDetail()">
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <div fxFlex.gt-sm="20%" fxFlex.gt-xs="20%" fxFlex="100" class="m-l-5 m-r-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Item</mat-label>
+              <input type="number" matInput formControlName="Item" placeholder="Item">
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="80%" fxFlex.gt-xs="80%" fxFlex="100" class="m-l-5 m-r-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Product name</mat-label>
+              <input type="text" matInput formControlName="Producto" placeholder="Product name">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <div fxFlex.gt-sm="40%" fxFlex.gt-xs="20%" fxFlex="100" class="m-l-5 m-r-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <input type="number" matInput formControlName="Cantidad" placeholder="Quantity">
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="40%" fxFlex.gt-xs="80%" fxFlex="100" class="m-l-5 m-r-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Price</mat-label>
+              <input type="number" matInput formControlName="PrecioUnitario" placeholder="Price">
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="20%" fxFlex.gt-xs="80%" fxFlex="100" class="m-l-5 m-r-5">
+            <button type="submit" mat-flat-button color="primary"
+              class="height-button btn-block m-t-5 p-l-20 p-r-20">Add detail</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="m-l-5 m-r-5 m-t-30 m-b-30">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let detail of dataDetailColected">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{detail.Producto}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{detail.PrecioUnitario | currency:'COP':'symbol-narrow':'4.2-2'}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayout="row" fxLayoutWrap="wrap" class="m-t-30">
+              <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+                <small>Quantity</small>
+                <h4 class="m-0 font-light ellipsis">{{detail.Cantidad}}</h4>
+              </div>
+              <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+                <small>Unit Price</small>
+                <h4 class="m-0 font-light ellipsis">{{detail.PrecioUnitario | currency:'COP':'symbol-narrow'}}</h4>
+              </div>
+              <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+                <small>IVA</small>
+                <h4 class="m-0 font-light ellipsis">{{detail.PrecioUnitario*19/100 | currency:'COP':'symbol-narrow'}} (19%)</h4>
+              </div>
+              <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+                <small>Discount</small>
+                <h4 class="m-0 font-light ellipsis">{{dataInvoice.value['Descuento']}}%</h4>
+              </div>
+              <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+                <small>Subtotal</small>
+                <h3 class="m-0 font-light ellipsis">
+                  {{(detail.Cantidad*detail.PrecioUnitario)-((detail.Cantidad*detail.PrecioUnitario)*dataInvoice.value['Descuento']/100)+((detail.Cantidad*detail.PrecioUnitario)*19/100) | currency:'COP':'symbol-narrow'}}
+                </h3>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" class="m-l-5 m-r-5 text-center">
+          <small>Total + IVA</small>
+          <h2 class="m-0">{{calculateTotal(19, dataInvoice.value['Descuento'], dataDetailColected, 'iva') | currency:'COP':'symbol-narrow'}}</h2>
+        </div>
+        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" class="m-l-5 m-r-5 text-center">
+          <small>Total gross</small>
+          <h2 class="m-0">{{calculateTotal(19, dataInvoice.value['Descuento'], dataDetailColected, '') | currency:'COP':'symbol-narrow'}}</h2>
+        </div>
+      </div>
+
+      <div class="m-t-10 m-b-10 m-l-5 m-r-5 text-center">
+        <span *ngIf="dataDetailColected.length == 0" class="text-danger font-bold">You must add at least one detail</span><br>
+        <button type="submit" mat-flat-button color="primary" class="height-button m-t-10 p-l-20 p-r-20">Create
+          invoice</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
